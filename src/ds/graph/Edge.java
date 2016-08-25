@@ -7,11 +7,10 @@ public class Edge {
 	private final Vertex dest;
 	private final int weight;
 	
-	public Edge(String id, Vertex src, Vertex dest, int weight) {
-		super();
-		this.id = id;
+	public Edge(Vertex src, Vertex dest, int weight) {
 		this.src = src;
 		this.dest = dest;
+		this.id = this.toString();
 		this.weight = weight;
 	}
 
@@ -32,7 +31,23 @@ public class Edge {
 	}
 	
 	public String toString() {
-		return src + "-" + dest;
+		return src + " - " + dest;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		if(this == obj)
+			return true;
+		if(obj == null)
+			return false;
+		if(getClass() != obj.getClass())
+			return false;
+		if(this.getId() != ((Edge)obj).getId())
+			return false;
+		return true;
+	}
+	
+	
 
 }

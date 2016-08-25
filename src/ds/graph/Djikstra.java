@@ -1,7 +1,9 @@
 package ds.graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ public class Djikstra {
 	private List<Vertex> unvisitedNodes;
 	private List<Vertex> adjacentNodes;
 	private Map<Vertex, Integer> distance;
+	private Map<Vertex, Vertex> previousNodes;
 	
 	public Djikstra(Graph graph) {
 		this.vertices = graph.getVertices();
@@ -24,8 +27,10 @@ public class Djikstra {
 	public void runAlgorithm(Vertex source) {
 		this.visitedNodes = new ArrayList<Vertex>();
 		this.unvisitedNodes = new ArrayList<Vertex>();
+		this.previousNodes = new HashMap<Vertex, Vertex>();
 		
 		distance.put(source, 0);
+		previousNodes.put(source, null);
 		unvisitedNodes.add(source);
 		
 		while(unvisitedNodes.size() >0) {
@@ -41,6 +46,7 @@ public class Djikstra {
 		for(Vertex vertex : adjacentNodes){
 			if(getShortestDistance(vertex) > getDistance(node, vertex) + getShortestDistance(node)) {
 				distance.put(vertex, getDistance(node, vertex) + getShortestDistance(node));
+				previousNodes.put(vertex, node);
 			}
 			this.unvisitedNodes.add(vertex);	
 		}
@@ -95,6 +101,27 @@ public class Djikstra {
 			return d;
 	}
 	
+	public Map<Vertex, Integer> getDistances() {
+		return this.distance;
+	}
 	
+
+	public void printShortestPath(Vertex dest) {
+		
+		List<Vertex> path = new LinkedList<Vertex>();
+		Vertex prev = dest;
+		path.add(prev);
+		do {
+			prev = previousNodes.get(prev);
+			path.add(prev);
+		} while(previousNodes.get(prev)!=null);
+		
+		Collections.reverse(path);
+		System.out.print("Start --> ");
+		for(Vertex node : path) {
+			System.out.print(node + " --> ");
+		}
+		System.out.println("End");
+	}
 
 }
