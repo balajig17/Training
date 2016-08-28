@@ -42,4 +42,16 @@ public class LinkedList {
 		}
 		
 	}
+	
+	/**
+	 * This method deletes a node in a linked list without using head reference.
+	 * @param node - Reference to node to be deleted
+	 * Assumption: Input node is not the last node in the list.
+	 */
+	public void deleteNode(Node node) {
+		// TODO
+		Node temp = node.getNext();
+		
+	
+	}
 }
