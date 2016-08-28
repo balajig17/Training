@@ -3,10 +3,10 @@ package ds.graph;
 import java.util.List;
 
 public class Graph {
-	
+
 	private final List<Vertex> vertices;
 	private final List<Edge> edges;
-	
+
 	public Graph(List<Vertex> vertices, List<Edge> edges) {
 		this.vertices = vertices;
 		this.edges = edges;
@@ -19,18 +19,14 @@ public class Graph {
 	public List<Edge> getEdges() {
 		return edges;
 	}
-	
+
 	public String toString() {
 		String graph = "";
-		
-		for(Edge edge : edges)
-			graph += edge.toString() + " "+ edge.getWeight()+"\n";
-		
+
+		for (Edge edge : edges)
+			graph += edge.toString() + " " + edge.getWeight() + "\n";
+
 		return graph;
 	}
-	
-	
-	
-	
 
 }

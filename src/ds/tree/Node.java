@@ -9,7 +9,6 @@ public class Node {
 	public Node(int value) {
 		this.value = value;
 	}
-	
 
 	public int getValue() {
 		return value;
@@ -23,7 +22,6 @@ public class Node {
 		return right;
 	}
 
-
 	public void setLeft(Node node) {
 		left = node;
 	}
@@ -31,7 +29,7 @@ public class Node {
 	public void setRight(Node node) {
 		right = node;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.valueOf(value);

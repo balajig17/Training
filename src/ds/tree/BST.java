@@ -78,7 +78,7 @@ public class BST {
 	}
 
 	public boolean isSuperBalanced() {
-		
+
 		// TODO: Incomplete Method!!
 		Set<Integer> depths = new HashSet<Integer>();
 		Node temp = root;
