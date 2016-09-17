@@ -22,9 +22,10 @@ public class LinkedList {
 	public void printList() {
 		Node temp = head;
 		while (temp.getNext() != null) {
-			System.out.println(temp.getNext().getData());
+			System.out.print(temp.getNext().getData()+" ");
 			temp = temp.getNext();
 		}
+		System.out.println();
 	}
 
 	public void deleteNode(int d) {
@@ -42,12 +43,39 @@ public class LinkedList {
 		}
 
 	}
+	
+	public void sortList() {
+		Node temp = head.getNext();
+		Node end = null;
+		Node prev = head, next;
+		while(temp != end) {
+			prev = head;
+			while(temp.getNext()!= end) {
+				next = temp.getNext();
+				if(temp.getData() > next.getData()) {
+					temp.setNext(next.getNext());
+					next.setNext(temp);
+					prev.setNext(next);
+					
+					temp = prev.getNext(); 
+					next = temp.getNext();
+				}
+				prev = temp;
+				temp = temp.getNext();
+			}
+			
+			end = temp;
+			temp = head.getNext();
+			printList();
+		}
+	}
 
 	/**
 	 * This method deletes a node in a linked list without using head reference.
 	 * 
 	 * @param node
-	 *            - Reference to node to be deleted Assumption: Input node is
+	 *            - Reference to node to be deleted 
+	 *            Assumption: Input node is
 	 *            not the last node in the list.
 	 */
 	public void deleteNode(Node node) {

@@ -18,9 +18,11 @@ public class ListProblems {
 
 		LinkedList list = new LinkedList();
 		list.append(10);
-		list.append(13);
-		list.printList();
-
+		list.append(9);
+		list.append(8);
+		list.append(7);
+		list.append(6);
+		list.sortList();
 	}
 
 }

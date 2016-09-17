@@ -31,7 +31,7 @@ public class WriteFile {
 				f.createNewFile();
 			}
 			
-			br = new BufferedWriter(new FileWriter(f));
+			br = new BufferedWriter(new FileWriter(f, true));
 			while(sc.hasNextLine()) {
 				String in = sc.nextLine();
 				br.write(in+"\n");
