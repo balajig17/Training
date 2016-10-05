@@ -13,78 +13,76 @@ public class StringAddition {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String num1 = "1";
-		String num2 = "111";
-		System.out.println("Sum = "+ sum(num1, num2));
+		String num1 = "1000";
+		String num2 = "10";
+		System.out.println("Sum = " + addBinary(num1, num2));
 
 	}
-	
-	
-	public static String sum(String b1, String b2) {
-		
-		
-		String small_num, big_num;
-		if(b1.length() >= b2.length()) {
-			small_num = b2;
-			big_num = b1;
+
+	public static String addBinary(String num1, String num2) {
+		StringBuffer sum = new StringBuffer();
+
+		System.out.println("num1 = " + num1);
+		System.out.println("num2 = " + num2);
+		num1 = new StringBuffer(num1).reverse().toString();
+		num2 = new StringBuffer(num2).reverse().toString();
+		// Longer String maintained in num2 variable
+		if (num1.length() >= num2.length()) {
+			String temp = num1;
+			num1 = num2;
+			num2 = temp;
 		}
-		else {
-			small_num = b1;
-			big_num = b2;
-		}
-		int max_length = big_num.length() + 1;
-		int min_length = small_num.length();
-		int diff = max_length - min_length + 1;
-		small_num = String.format("%0$"+diff+"s", small_num);
-		small_num = small_num.replace(' ', '0');
-		big_num = String.format("%0$"+1+"s", big_num);
-		big_num = big_num.replace(' ', '0');
-		System.out.println(small_num);
-		System.out.println(big_num);
-		char[] sum = new char[max_length];
-		boolean carry = false;
-		for(int i = max_length-1; i >0; i--) {
-			String s = add(small_num.charAt(i), big_num.charAt(i), carry);
-			if(s == "10" || s == "11") {
-				carry = true;
-				sum[i] = s.charAt(1);
+
+		int i;
+		int carry = 0;
+		for (i = 0; i < num1.length(); i++) {
+			String res = add(num1.charAt(i), num2.charAt(i), carry);
+			if (res.length() == 2) {
+				carry = 1;
+				sum.append(res.charAt(1));
+			} else {
+				carry = 0;
+				sum.append(res.charAt(0));
 			}
-			else {
-				carry = false;
-				sum[i] = s.charAt(0);
-			}				
 		}
-		if(carry)
-			sum[0] = '1';
-		else
-			sum[0] = '\u0000';
-		System.out.println(sum);
-		return String.copyValueOf(sum);
+		for (int j = i; j < num2.length(); j++) {
+			if (carry == 1) {
+				String res = add('1', num2.charAt(j), 0);
+				if (res.length() == 2) {
+					carry = 1;
+					sum.append(res.charAt(1));
+				} else {
+					carry = 0;
+					sum.append(res.charAt(0));
+				}
+			} else {
+				sum.append(num2.charAt(j));
+			}
+		}
+		if (carry == 1)
+			sum.append('1');
+
+		return sum.reverse().toString();
+
 	}
-	
-	private static String add(char n1, char n2, boolean carry) {
+
+	private static String add(char n1, char n2, int carry) {
 		String sum;
-		if(n1 == '0') {
-			if(n2 == '1') 
-				sum = "1";
-			else
-				sum = "0";
+		if (n1 == '0') {
+			sum = (n2 == '1') ? "1" : "0";
 		} else {
-			if(n2 == '0')
-				sum = "1";
-			else
-				sum = "10";
+			sum = (n2 == '1') ? "10" : "1";
 		}
-		
-		if(!carry)
-			return sum;
-		else {
-			if(sum == "10")
-				return "11";
-			else
-				return add(sum.charAt(0), '1', false);
+
+		if (carry == 1) {
+			if (sum == "10")
+				sum = "11";
+			else {
+				sum = add('1', sum.charAt(0), 0);
+			}
 		}
+
+		return sum;
 	}
-	
 
 }
